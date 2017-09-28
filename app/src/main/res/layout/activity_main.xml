@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="6dp"
+    android:layout_marginTop="10dp"
+    android:orientation="vertical"
+    tools:context="br.com.alura.taxametabolicabasal.MainActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Altura (cm):"/>
+    <EditText
+        android:id="@+id/edAltura"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Peso (kg):" />
+    <EditText
+        android:id="@+id/edPeso"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Idade (anos):"/>
+    <EditText
+        android:id="@+id/edIdade"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:inputType="number"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sexo:"/>
+
+    <RadioGroup
+        android:id="@+id/rgSexo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    <RadioButton
+        android:id="@+id/rbMasculino"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Masculino" />
+     <RadioButton
+         android:id="@+id/rbFeminino"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text="Feminino"/>
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nível de atividade física" />
+
+    <RadioGroup
+        android:id="@+id/rgNF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    <RadioButton
+        android:id="@+id/rbLeve"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Leve"/>
+    <RadioButton
+        android:id="@+id/rbModerado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Moderado"/>
+    <RadioButton
+        android:id="@+id/rbIntenso"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Intenso"/>
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Resultados Agrupados"/>
+
+    <CheckBox
+        android:id="@+id/cbResultSem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Apresentar resultado para a semana"/>
+    <CheckBox
+        android:id="@+id/cbResultMes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Apresentar resultado para o mês"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Para Calcular, clique no botão abaixo"/>
+    <ImageButton
+        android:id="@+id/ibCalc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="6dp"
+        android:src="@drawable/android" />
+</LinearLayout>
