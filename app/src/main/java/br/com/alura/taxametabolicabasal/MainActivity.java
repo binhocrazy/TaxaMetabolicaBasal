@@ -23,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
 
     // COMIT TESTANDO HAHA!!!!
 
+    // mais um Comentário //
+
     ////////////////////////// VARIAVEIS //////////////////////////
     double P, A, I, AF, Resultado, Resultado_semana, Resultado_mes;
     ///////////////////////////////////////////////////////////////
