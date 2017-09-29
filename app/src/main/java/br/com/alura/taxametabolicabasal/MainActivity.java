@@ -21,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
     CheckBox cbResultSem, cbResultMes;
     ImageButton ibCalc;
 
+    // COMIT TESTANDO HAHA!!!!
+
     ////////////////////////// VARIAVEIS //////////////////////////
     double P, A, I, AF, Resultado, Resultado_semana, Resultado_mes;
     ///////////////////////////////////////////////////////////////
