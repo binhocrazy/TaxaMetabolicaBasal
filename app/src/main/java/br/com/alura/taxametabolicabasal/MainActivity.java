@@ -13,6 +13,9 @@ import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class MainActivity extends AppCompatActivity {
 
     ////////////////////////// VARIAVEIS //////////////////////////
@@ -20,8 +23,7 @@ public class MainActivity extends AppCompatActivity {
     RadioButton rbMasculino, rbFeminino, rbLeve, rbModerado, rbIntenso;
     CheckBox cbResultSem, cbResultMes;
     ImageButton ibCalc;
-
-    ///////////// EDITADO ULTIMA VEZ PELO BRENDER ////////////////
+    ProgressBar mProgressBar;
 
     ////////////////////////// VARIAVEIS //////////////////////////
     double P, A, I, AF, Resultado, Resultado_semana, Resultado_mes;
@@ -51,7 +53,34 @@ public class MainActivity extends AppCompatActivity {
         final CheckBox cbResultMes = (CheckBox) findViewById(R.id.cbResultMes);
 
         final ImageButton ibCalc = (ImageButton) findViewById(R.id.ibCalc);
-        ///////////////////////////////////////////////////////////////////
+
+        final ProgressBar mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
+
+        ///////////////// FUNÇÃO DO CLIQUE NO BOTÃO PROGRESS BAR ///////////////////////
+        ibCalc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Quando clica no botão torna visível o ProgressBar
+                mProgressBar.setVisibility(View.VISIBLE);
+
+
+                Timer timer  = new Timer();
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                //Depois que passa os 10s "esconde" o ProgressBar
+                                mProgressBar.setVisibility(View.GONE);
+                            }
+                        });
+                    }
+                },10000);//Aqui o delay é um long em milisegundos
+            }
+        });
+        ///////////////////////////////////////////////////////////////////////////////////
 
         ///////////////// FUNÇÃO DO CLIQUE NO BOTÃO ///////////////////////
          ibCalc.setOnClickListener(new View.OnClickListener() {
