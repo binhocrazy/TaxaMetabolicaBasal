@@ -113,5 +113,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginRight="6dp"
-        android:src="@drawable/android" />
+        android:src="@drawable/android"/>
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:id="@+id/barra"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centervertical="true"
+        android:layout_centerhorinzontal="true" />
+
 </LinearLayout>
