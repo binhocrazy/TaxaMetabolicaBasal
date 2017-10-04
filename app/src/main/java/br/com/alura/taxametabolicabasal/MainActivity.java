@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
                                  Resultado = Resultado * AF;
                                  Toast.makeText(MainActivity.this, "Sua TMB é de " + Resultado + " kcal diárias", Toast.LENGTH_SHORT).show();
                                  return;
-                         }
+                         };
                      }
                  /////////////////////////////////// FIM SELEÇÃO SE MASCULINO ///////////////////////////////////////////
 
@@ -136,10 +136,8 @@ public class MainActivity extends AppCompatActivity {
                                    {
                                        AF = 1.82;
                                    }
-                                   if(cbResultSem.isChecked() || cbResultMes.isChecked())
-                                   {
-                                       if(cbResultSem.isChecked() && cbResultMes.isChecked())
-                                       {
+                                   if(cbResultSem.isChecked() || cbResultMes.isChecked()) {
+                                       if (cbResultSem.isChecked() && cbResultMes.isChecked()) {
                                            Resultado = 65.5 + (9.6 * P) + (1.8 * A) - (4.7 * I);
                                            Resultado = Resultado * AF;
                                            Resultado_semana = Resultado * 7;
@@ -147,23 +145,21 @@ public class MainActivity extends AppCompatActivity {
                                            Toast.makeText(MainActivity.this, "Sua TMB é de " + Resultado + " kcal diárias \n Sua TMB é de " + Resultado_semana + " kcal semanal \nSua TMB é de " + Resultado_mes + " kcal mensal", Toast.LENGTH_SHORT).show();
                                            return;
                                        }
-                                       if(cbResultSem.isChecked())
-                                       {
+                                       if (cbResultSem.isChecked()) {
                                            Resultado = 65.5 + (9.6 * P) + (1.8 * A) - (4.7 * I);
                                            Resultado = Resultado * AF;
                                            Resultado_semana = Resultado * 7;
                                            Toast.makeText(MainActivity.this, "Sua TMB é de " + Resultado + " kcal diárias \n Sua TMB é de " + Resultado_semana + " kcal semanal", Toast.LENGTH_SHORT).show();
                                            return;
                                        }
-                                       if(cbResultMes.isChecked())
-                                       {
+                                       if (cbResultMes.isChecked()) {
                                            Resultado = 65.5 + (9.6 * P) + (1.8 * A) - (4.7 * I);
                                            Resultado = Resultado * AF;
                                            Resultado_mes = Resultado * 30;
                                            Toast.makeText(MainActivity.this, "Sua TMB é de " + Resultado + " kcal diárias \n Sua TMB é de " + Resultado_mes + " kcal mensal", Toast.LENGTH_SHORT).show();
                                            return;
                                        }
-
+                                    }
                                        else
                                        {
                                            Resultado = 65.5 + (9.6 * P) + (1.8 * A) - (4.7 * I);
@@ -171,12 +167,11 @@ public class MainActivity extends AppCompatActivity {
                                            Toast.makeText(MainActivity.this, "Sua TMB é de " + Resultado + " kcal diárias", Toast.LENGTH_SHORT).show();
                                            return;
                                        }
-                                   }
+                                   };
                      //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                      }
                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                  }
-             }
         });
     }
 }
