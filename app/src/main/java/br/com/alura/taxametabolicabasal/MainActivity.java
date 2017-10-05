@@ -2,6 +2,7 @@ package br.com.alura.taxametabolicabasal;
 
 import android.annotation.TargetApi;
 import android.os.Build;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -56,54 +57,56 @@ public class MainActivity extends AppCompatActivity {
 
         final ProgressBar mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
 
-        ///////////////// FUNÇÃO DO CLIQUE NO BOTÃO PROGRESS BAR ///////////////////////
-        ibCalc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Quando clica no botão torna visível o ProgressBar
-                mProgressBar.setVisibility(View.VISIBLE);
-
-
-                Timer timer  = new Timer();
-                timer.schedule(new TimerTask() {
-                    @Override
-                    public void run() {
-
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                //Depois que passa os 10s "esconde" o ProgressBar
-                                mProgressBar.setVisibility(View.GONE);
-                            }
-                        });
-                    }
-                },10000);//Aqui o delay é um long em milisegundos
-            }
-        });
-        ///////////////////////////////////////////////////////////////////////////////////
 
         ///////////////// FUNÇÃO DO CLIQUE NO BOTÃO ///////////////////////
          ibCalc.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View view) {
-        ////////////////////////// CONDIÇÕES PARA DADOS EM BRANCO //////////////////////////
+
+                 //Quando clica no botão torna visível o ProgressBar
+                 mProgressBar.setVisibility(View.VISIBLE);
+
+                 Timer timer = new Timer();
+                 timer.schedule(new TimerTask() {
+                     @Override
+                     public void run() {
+
+                         runOnUiThread(new Runnable() {
+                             @Override
+                             public void run() {
+                                 //Depois que passa os 10s "esconde" o ProgressBar
+                                 mProgressBar.setVisibility(View.GONE);
+                             }
+                         });
+                     }
+                 }, 10000);//Aqui o delay é um long em milisegundos
+
+                 ////////////////////////// CONDIÇÕES PARA DADOS EM BRANCO /////////////////////////
+
+                 Handler handler = new Handler();
+                 long delay = 10000; // tempo de delay em millisegundos
+                 handler.postDelayed(new Runnable() {
+                     public void run() {
+                         // código a ser executado após o tempo de delay
                  if (
                          edAltura.getText().length() == 0 ||
-                         edPeso.getText().length() == 0 ||
-                         edIdade.getText().length() == 0 ||
+                                 edPeso.getText().length() == 0 ||
+                                 edIdade.getText().length() == 0 ||
                                  (rbMasculino.isChecked() == false && rbFeminino.isChecked() == false) ||
-                                 (rbLeve.isChecked() == false && rbModerado.isChecked() == false && rbIntenso.isChecked() == false))
-                 {
-                 Toast.makeText(MainActivity.this, "Atenção, os dados altura, peso, idade, sexo e nível de atividade física devem ser preenchidos!", Toast.LENGTH_SHORT).show();
-                 return;
+                                 (rbLeve.isChecked() == false && rbModerado.isChecked() == false && rbIntenso.isChecked() == false)) {
+                     Toast.makeText(MainActivity.this, "Atenção, os dados altura, peso, idade, sexo e nível de atividade física devem ser preenchidos!", Toast.LENGTH_SHORT).show();
+                     return;
                  }
-            ///////////////////////////// CALCULO /////////////////////////////////////////
-                 else  {
-                         A = Double.parseDouble(edAltura.getText().toString());
-                         P = Double.parseDouble(edPeso.getText().toString());
-                         I = Double.parseDouble(edIdade.getText().toString());
+                 ///////////////////////////// CALCULO /////////////////////////////////////////
+                 else {
+                     A = Double.parseDouble(edAltura.getText().toString());
+                     P = Double.parseDouble(edPeso.getText().toString());
+                     I = Double.parseDouble(edIdade.getText().toString());
 
-             //////////////////////// INICIO SELEÇÃO SE MASCULINO ////////////////////////////////
+
+                     ///////////////////////////////////////////////////////////////////////////////////
+
+                     //////////////////////// INICIO SELEÇÃO SE MASCULINO ////////////////////////////////
                      if (rbMasculino.isChecked()) {
                          if (rbLeve.isChecked()) {
                              AF = 1.55;
@@ -138,69 +141,67 @@ public class MainActivity extends AppCompatActivity {
                                  Toast.makeText(MainActivity.this, "Sua TMB é de " + Resultado + " kcal diárias \n Sua TMB é de " + Resultado_mes + " kcal mensal", Toast.LENGTH_SHORT).show();
                                  return;
                              }
+                         } else {
+                             Resultado = 66.5 + (14 * P) + (5 * A) - (6.7 * I);
+                             Resultado = Resultado * AF;
+                             Toast.makeText(MainActivity.this, "Sua TMB é de " + Resultado + " kcal diárias", Toast.LENGTH_SHORT).show();
+                             return;
                          }
-                             else
-                         {
-                                 Resultado = 66.5 + (14 * P) + (5 * A) - (6.7 * I);
+                         ;
+                     }
+                     /////////////////////////////////// FIM SELEÇÃO SE MASCULINO ///////////////////////////////////////////
+
+                     /////////////////////////////////// INICIO SELEÇÃO SE FEMININO /////////////////////////////////////////
+
+                     else {
+                         if (rbLeve.isChecked()) {
+                             AF = 1.56;
+                         }
+                         if (rbModerado.isChecked()) {
+                             AF = 1.64;
+                         }
+                         if (rbIntenso.isChecked()) {
+                             AF = 1.82;
+                         }
+                         if (cbResultSem.isChecked() || cbResultMes.isChecked()) {
+                             if (cbResultSem.isChecked() && cbResultMes.isChecked()) {
+                                 Resultado = 65.5 + (9.6 * P) + (1.8 * A) - (4.7 * I);
                                  Resultado = Resultado * AF;
-                                 Toast.makeText(MainActivity.this, "Sua TMB é de " + Resultado + " kcal diárias", Toast.LENGTH_SHORT).show();
+                                 Resultado_semana = Resultado * 7;
+                                 Resultado_mes = Resultado * 30;
+                                 Toast.makeText(MainActivity.this, "Sua TMB é de " + Resultado + " kcal diárias \n Sua TMB é de " + Resultado_semana + " kcal semanal \nSua TMB é de " + Resultado_mes + " kcal mensal", Toast.LENGTH_SHORT).show();
                                  return;
-                         };
+                             }
+                             if (cbResultSem.isChecked()) {
+                                 Resultado = 65.5 + (9.6 * P) + (1.8 * A) - (4.7 * I);
+                                 Resultado = Resultado * AF;
+                                 Resultado_semana = Resultado * 7;
+                                 Toast.makeText(MainActivity.this, "Sua TMB é de " + Resultado + " kcal diárias \n Sua TMB é de " + Resultado_semana + " kcal semanal", Toast.LENGTH_SHORT).show();
+                                 return;
+                             }
+                             if (cbResultMes.isChecked()) {
+                                 Resultado = 65.5 + (9.6 * P) + (1.8 * A) - (4.7 * I);
+                                 Resultado = Resultado * AF;
+                                 Resultado_mes = Resultado * 30;
+                                 Toast.makeText(MainActivity.this, "Sua TMB é de " + Resultado + " kcal diárias \n Sua TMB é de " + Resultado_mes + " kcal mensal", Toast.LENGTH_SHORT).show();
+                                 return;
+                             }
+                         } else {
+                             Resultado = 65.5 + (9.6 * P) + (1.8 * A) - (4.7 * I);
+                             Resultado = Resultado * AF;
+                             Toast.makeText(MainActivity.this, "Sua TMB é de " + Resultado + " kcal diárias", Toast.LENGTH_SHORT).show();
+                             return;
+                         }
                      }
-                 /////////////////////////////////// FIM SELEÇÃO SE MASCULINO ///////////////////////////////////////////
-
-                 /////////////////////////////////// INICIO SELEÇÃO SE FEMININO /////////////////////////////////////////
-
-                             else
-                     {
-                                   if(rbLeve.isChecked())
-                                   {
-                                       AF = 1.56;
-                                   }
-                                   if(rbModerado.isChecked())
-                                   {
-                                       AF = 1.64;
-                                   }
-                                   if(rbIntenso.isChecked())
-                                   {
-                                       AF = 1.82;
-                                   }
-                                   if(cbResultSem.isChecked() || cbResultMes.isChecked()) {
-                                       if (cbResultSem.isChecked() && cbResultMes.isChecked()) {
-                                           Resultado = 65.5 + (9.6 * P) + (1.8 * A) - (4.7 * I);
-                                           Resultado = Resultado * AF;
-                                           Resultado_semana = Resultado * 7;
-                                           Resultado_mes = Resultado * 30;
-                                           Toast.makeText(MainActivity.this, "Sua TMB é de " + Resultado + " kcal diárias \n Sua TMB é de " + Resultado_semana + " kcal semanal \nSua TMB é de " + Resultado_mes + " kcal mensal", Toast.LENGTH_SHORT).show();
-                                           return;
-                                       }
-                                       if (cbResultSem.isChecked()) {
-                                           Resultado = 65.5 + (9.6 * P) + (1.8 * A) - (4.7 * I);
-                                           Resultado = Resultado * AF;
-                                           Resultado_semana = Resultado * 7;
-                                           Toast.makeText(MainActivity.this, "Sua TMB é de " + Resultado + " kcal diárias \n Sua TMB é de " + Resultado_semana + " kcal semanal", Toast.LENGTH_SHORT).show();
-                                           return;
-                                       }
-                                       if (cbResultMes.isChecked()) {
-                                           Resultado = 65.5 + (9.6 * P) + (1.8 * A) - (4.7 * I);
-                                           Resultado = Resultado * AF;
-                                           Resultado_mes = Resultado * 30;
-                                           Toast.makeText(MainActivity.this, "Sua TMB é de " + Resultado + " kcal diárias \n Sua TMB é de " + Resultado_mes + " kcal mensal", Toast.LENGTH_SHORT).show();
-                                           return;
-                                       }
-                                    }
-                                       else
-                                       {
-                                           Resultado = 65.5 + (9.6 * P) + (1.8 * A) - (4.7 * I);
-                                           Resultado = Resultado * AF;
-                                           Toast.makeText(MainActivity.this, "Sua TMB é de " + Resultado + " kcal diárias", Toast.LENGTH_SHORT).show();
-                                           return;
-                                       }
-                                   };
-                     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                     }
-                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                 };
                  }
-        });
-    }
+
+             }, delay);
+
+                     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                 }
+                 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+             });
+         }
 }
